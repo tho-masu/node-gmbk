@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <script src="./javascript/Chart.bundle2.js"></script>
+  <script src="./javascript/gmbk.js"></script>
+  <link href="./css/gmbk.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <header>
+    <div align="center">
+      <img src="../img/gmbk_logo.png" width="240px">
+    </div>
+  </header>
+
+  <!-- 以下グラフ描画領域 -->
+
+  <div class="industry_filter">
+
+    <label>ブロック</label>
+    <select id="block" onchange="optionchange0()">
+      <option value="blockAll">全て</option>
+    </select>
+
+    <label>支店</label>
+    <select id="branch" onchange="optionchange1()">
+    </select>
+
+    <label>営業員</label>
+    <select id="salesman" onchange="optionchange2()">
+    </select>
+
+  </div>
+
+  <div class="industry_filter">
+
+    <label>分析対象</label>
+    <input type="text" id="range" value="全てのブロック" readonly="readonly">
+    &emsp;
+    <label>推計リスク</label>
+    <input type="text" id="risk" value="" readonly="readonly">
+    <label>平均リターン</label>
+    <input type="text" id="return" value="" readonly="readonly">
+  </div>
+
+  <br><br>
+
+  <!-- グラフ作成 -->
+
+  <table class="round-table">
+    <tr>
+      <th>散布図</th>
+    </tr>
+    <tr>
+      <td>
+        <div style="position: relative; height:460px; width:460px">
+          <canvas id="myScatterChart" height="460" width="460"></canvas>
+        </div>
+
+        <script>
+          let ctx = document.getElementById("myScatterChart");
+
+          let myScatterChart = new Chart(ctx, {
+            type: 'scatter',
+            data: {
+              datasets: [
+                {
+                  label: '(リスク,リターン)',
+                  data: [],
+                  backgroundColor: 'RGBA(225,95,150, 1)'
+                }
+              ]
+            },
+            options: {
+              title: {
+                display: false,
+                text: 'リスク・リターン'
+              },
+              scales: {
+                xAxes: [{
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'リスク'
+                  },
+                  /*ticks: {
+                    suggestedMin: 0,
+                    suggestedMax: 100,
+                    stepSize: 10,
+                    callback: function(value, index, values){
+                      return  value +  '点'
+                    }
+                  }*/
+                }],
+                yAxes: [{
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'リターン'
+                  },
+                  /*ticks: {
+                    suggestedMax: 100,
+                    suggestedMin: 0,
+                    stepSize: 10,
+                    callback: function(value, index, values){
+                      return  value +  '点'
+                    }
+                  }*/
+                }]
+              }
+            }
+          });
+        </script>
+      </td>
+    </tr>
+  </table>
+
+
+  <br><br>
+
+  <!-- テーブル作成 -->
+
+  <table id="riskReturnTable" class="round-table">
+    <tbody>
+      <tr>
+        <th>
+          リスク
+        </th>
+        <th>
+          リターン
+        </th>
+      </tr>
+    </tbody>
+  </table>
+
+  <br>
+
+  <script>
+    window.onload = init();
+  </script>
+</body>
+
+</html>
