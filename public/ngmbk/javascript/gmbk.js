@@ -1,7 +1,7 @@
 /* 初期化 */
 
 function init() {
-	fetch('/api')
+	fetch('/ngmbk/api')
 		.then(response => {
 			return response.json().then(json => {
 				const defaultdata = [];
@@ -13,7 +13,7 @@ function init() {
 				changeRiskReturn(defaultdata);
 			});
 		});
-	fetch('/nest')
+	fetch('/ngmbk/nest')
 		.then(nest => {
 			return nest.json().then(json => {
 				alldata = json;
@@ -45,9 +45,9 @@ function fetchAndChange(block, branch, salesman) {
 
 	if (array.length != 0) {
 		const join = array.join("&");
-		url = "/api?" + join;
+		url = "/ngmbk/api?" + join;
 	} else {
-		url = "/api";
+		url = "/ngmbk/api";
 	}
 
 	fetch(url).then(response => {
